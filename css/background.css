@@ -1,0 +1,47 @@
+/* Background container with blur effect */
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 0.8s ease-in-out;
+    z-index: -2;
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.1);
+}
+#background-container.loaded {
+    opacity: 1;
+}
+
+/* Background overlay for text contrast */
+#background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.15);
+    z-index: -1;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Pseudo-element for cross-fade transition */
+#background-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+#background-container.is-fading::before {
+    opacity: 1;
+}

@@ -1,0 +1,95 @@
+/* Set numbers to monospaced (tabular) */
+#time-date-container {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Glassmorphism effect for interactive elements */
+.glass-effect {
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.dark .glass-effect {
+    background-color: rgba(30, 30, 30, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Override for search engine list in day mode to ensure contrast */
+#search-engine-list-wrapper.glass-effect {
+    background-color: rgba(80, 80, 80, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hide search input's default clear button */
+#search-input::-webkit-search-decoration,
+#search-input::-webkit-search-cancel-button,
+#search-input::-webkit-search-results-button,
+#search-input::-webkit-search-results-decoration {
+    -webkit-appearance:none;
+}
+
+/* Search input text and placeholder styling */
+#search-input {
+    transition: color 0.3s ease-in-out;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+#search-input::placeholder {
+    color: rgb(75 85 99);
+    transition: color 0.3s ease-in-out;
+}
+.dark #search-input::placeholder {
+    color: rgb(209 213 219 / 0.7);
+}
+
+/* Spinning animation for refresh button */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+.is-spinning {
+    animation: spin 1s linear infinite;
+}
+
+/* Style for the active theme item in the menu */
+.theme-item-active {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+.dark .theme-item-active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Unified search engine icon sizing */
+.search-engine-icon svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    fill: currentColor; /* Ensures SVG color is inherited */
+}
+
+/* Styles for icon transition */
+.search-engine-icon-container {
+    position: absolute;
+    width: 28px; /* w-7 */
+    height: 28px; /* h-7 */
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Hitokoto styles */
+#hitokoto-container {
+    margin-top: 1rem; /* mt-4 */
+    /* MODIFIED: Add auto margins for horizontal centering */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.5rem 1rem; /* p-2 px-4 */
+    max-width: 80%;
+    font-weight: 500; /* font-medium */
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+#hitokoto-container.is-fading {
+    opacity: 0;
+    transform: translateY(-10px);
+}
