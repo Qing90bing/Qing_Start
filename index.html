@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>起始页</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,13 +43,13 @@
             </div>
         </div>
 
-        <div class="w-full max-w-xl relative">
-            <div id="time-date-container" class="absolute bottom-full w-full text-center text-shadow-custom mb-8">
-                <div id="time" class="text-7xl md:text-8xl font-semibold tracking-tighter">00:00</div>
-                <div id="date" class="text-lg md:text-xl font-medium mt-1"></div>
-                <div id="hitokoto-container" class="text-lg md:text-xl" title="点击切换"></div>
-            </div>
+        <div id="time-date-container" class="text-center absolute top-8 md:top-16 text-shadow-custom">
+            <div id="time" class="text-7xl md:text-8xl font-semibold tracking-tighter">00:00</div>
+            <div id="date" class="text-lg md:text-xl font-medium mt-1"></div>
+            <div id="hitokoto-container" class="text-lg md:text-xl" title="点击切换"></div>
+        </div>
 
+        <div class="w-full max-w-xl relative">
             <form id="search-form" class="flex items-center w-full h-14 rounded-full shadow-lg glass-effect">
                 <div id="search-engine-logo" class="relative flex-shrink-0 w-14 h-14 flex items-center justify-center cursor-pointer rounded-l-full hover:bg-black/10 dark:hover:bg-white/20 transition-colors icon-color">
                     <div id="icon-container-a" class="search-engine-icon-container"></div>
