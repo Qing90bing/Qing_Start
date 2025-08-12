@@ -1,45 +1,45 @@
-/* Custom styles for the page */
+/* 页面的自定义基础样式 */
 body {
-    font-family: 'Inter', sans-serif;
-    transition: background-color 0.3s ease-in-out;
+    font-family: 'Inter', sans-serif; /* 设置全局字体 */
+    transition: background-color 0.3s ease-in-out; /* 背景颜色过渡效果 */
 }
 .text-shadow-custom {
-     text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+     text-shadow: 0 2px 8px rgba(0,0,0,0.15); /* 自定义文本阴影 */
 }
 .dark .text-shadow-custom {
-     text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+     text-shadow: 0 2px 12px rgba(0,0,0,0.6); /* 深色模式下的文本阴影 */
 }
 
-/* Unified icon color for day/night modes */
+/* 为日间/夜间模式统一图标颜色 */
 .icon-color {
-    color: rgb(255 255 255); /* white */
-    transition: color 0.3s ease-in-out;
+    color: rgb(255 255 255); /* 白色 */
+    transition: color 0.3s ease-in-out; /* 颜色过渡效果 */
 }
 .dark .icon-color {
-    color: rgb(255 255 255); /* white */
+    color: rgb(255 255 255); /* 白色 */
 }
 
-/* Custom scrollbar for dropdown lists */
+/* 下拉列表的自定义滚动条 */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
+    width: 4px; /* 滚动条宽度 */
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+    background: transparent; /* 滚动条轨道背景透明 */
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.2); /* 滚动条滑块颜色 */
+    border-radius: 2px; /* 滚动条滑块圆角 */
 }
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3); /* 深色模式下滚动条滑块颜色 */
 }
 
-/* Main Content Visibility */
+/* 主要内容的可见性 */
 #main-content {
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
+    opacity: 0; /* 初始透明度为0，用于加载动画 */
+    transition: opacity 0.8s ease-in-out; /* 透明度过渡效果 */
 }
 
 #main-content.visible {
-    opacity: 1;
+    opacity: 1; /* 完全显示 */
 }

@@ -1,29 +1,29 @@
-/* Set numbers to monospaced (tabular) */
+/* 将数字设置为等宽（表格数字） */
 #time-date-container {
-    font-variant-numeric: tabular-nums;
+    font-variant-numeric: tabular-nums; /* 确保数字等宽，防止时间跳动 */
 }
 
-/* Glassmorphism effect for interactive elements */
+/* 交互元素的玻璃拟态效果 */
 .glass-effect {
-    background-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    background-color: rgba(255, 255, 255, 0.4); /* 半透明背景 */
+    backdrop-filter: blur(10px); /* 背景模糊 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容 Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* 边框 */
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out; /* 过渡效果 */
 }
 
 .dark .glass-effect {
-    background-color: rgba(30, 30, 30, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(30, 30, 30, 0.4); /* 深色模式下的背景 */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 深色模式下的边框 */
 }
 
-/* Override for search engine list in day mode to ensure contrast */
+/* 在日间模式下覆盖搜索引擎列表的样式以确保对比度 */
 #search-engine-list-wrapper.glass-effect {
     background-color: rgba(80, 80, 80, 0.6);
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Hide search input's default clear button */
+/* 隐藏搜索输入框默认的清除按钮 */
 #search-input::-webkit-search-decoration,
 #search-input::-webkit-search-cancel-button,
 #search-input::-webkit-search-results-button,
@@ -31,67 +31,67 @@
     -webkit-appearance:none;
 }
 
-/* Search input text and placeholder styling */
+/* 搜索输入框文本和占位符样式 */
 #search-input {
     transition: color 0.3s ease-in-out;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4); /* 文本阴影 */
 }
 #search-input::placeholder {
-    color: rgb(75 85 99);
+    color: rgb(75 85 99); /* 占位符颜色 */
     transition: color 0.3s ease-in-out;
 }
 .dark #search-input::placeholder {
-    color: rgb(209 213 219 / 0.7);
+    color: rgb(209 213 219 / 0.7); /* 深色模式下占位符颜色 */
 }
 
-/* Spinning animation for refresh button */
+/* 刷新按钮的旋转动画 */
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(-360deg); }
 }
 .is-spinning {
-    animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite; /* 应用旋转动画 */
 }
 
-/* Style for the active theme item in the menu */
+/* 菜单中活动主题项的样式 */
 .theme-item-active {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.08); /* 活动项背景色 */
 }
 .dark .theme-item-active {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.15); /* 深色模式下活动项背景色 */
 }
 
-/* Unified search engine icon sizing */
+/* 统一搜索引擎图标大小 */
 .search-engine-icon svg {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    fill: currentColor; /* Ensures SVG color is inherited */
+    fill: currentColor; /* 确保SVG颜色被继承 */
 }
 
-/* Styles for icon transition */
+/* 图标过渡样式 */
 .search-engine-icon-container {
     position: absolute;
     width: 28px; /* w-7 */
     height: 28px; /* h-7 */
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out; /* 透明度过渡 */
 }
 
-/* Hitokoto styles */
+/* 一言（Hitokoto）样式 */
 #hitokoto-container {
     margin-top: 1rem; /* mt-4 */
-    /* MODIFIED: Add auto margins for horizontal centering */
+    /* MODIFIED: 添加 auto margins 以实现水平居中 */
     margin-left: auto;
     margin-right: auto;
     padding: 0.5rem 1rem; /* p-2 px-4 */
     max-width: 80%;
     font-weight: 500; /* font-medium */
-    cursor: pointer;
+    cursor: pointer; /* 鼠标指针为手形 */
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     display: inline-block;
 }
 
 #hitokoto-container.is-fading {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-10px); /* 向上移动并淡出 */
 }

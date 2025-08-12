@@ -1,23 +1,23 @@
-/* Preloader Styles */
+/* 预加载器样式 */
 #preloader {
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* 透明度和可见性过渡 */
 }
 
 #preloader.preloader-hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    opacity: 0; /* 隐藏时透明 */
+    visibility: hidden; /* 隐藏时不可见 */
+    pointer-events: none; /* 隐藏时不可交互 */
 }
 
 #preloader-icon {
-    animation: breathing 1.5s ease-in-out infinite;
+    animation: breathing 1.5s ease-in-out infinite; /* 应用呼吸动画 */
 }
 
 @keyframes breathing {
     0%, 100% {
-        opacity: 1;
+        opacity: 1; /* 动画开始和结束时完全不透明 */
     }
     50% {
-        opacity: 0.2;
+        opacity: 0.2; /* 动画中间半透明 */
     }
 }
