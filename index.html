@@ -18,10 +18,10 @@
             transition: background-color 0.3s ease-in-out;
         }
         .text-shadow-custom {
-             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+             text-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         .dark .text-shadow-custom {
-             text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+             text-shadow: 0 2px 12px rgba(0,0,0,0.6);
         }
         
         /* Set numbers to monospaced (tabular) */
@@ -91,6 +91,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Override for search engine list in day mode to ensure contrast */
+        #search-engine-list-wrapper.glass-effect {
+            background-color: rgba(80, 80, 80, 0.6);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
         /* Custom scrollbar for dropdown lists */
         .custom-scrollbar::-webkit-scrollbar {
             width: 4px;
@@ -117,6 +123,7 @@
         /* Search input text and placeholder styling */
         #search-input {
             transition: color 0.3s ease-in-out;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
         #search-input::placeholder {
             color: rgb(75 85 99);
@@ -145,11 +152,11 @@
 
         /* Unified icon color for day/night modes */
         .icon-color {
-            color: rgb(55 65 81); /* gray-700 */
+            color: rgb(255 255 255); /* white */
             transition: color 0.3s ease-in-out;
         }
         .dark .icon-color {
-            color: rgb(209 213 219); /* gray-300 */
+            color: rgb(255 255 255); /* white */
         }
 
         /* Unified search engine icon sizing */
@@ -192,7 +199,7 @@
     <div id="background-overlay"></div>
     <div id="pseudo-style-container"></div>
 
-    <div class="relative min-h-screen w-full flex flex-col items-center justify-center p-4 text-gray-900 dark:text-white">
+    <div class="relative min-h-screen w-full flex flex-col items-center justify-center p-4 text-white">
 
         <div id="refresh-button" class="absolute top-5 left-5 p-2 rounded-full cursor-pointer hover:bg-black/10 dark:hover:bg-white/20 transition-colors" title="刷新背景">
             <svg class="refresh-icon icon-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M21 21v-5h-5"/></svg>
@@ -220,7 +227,7 @@
                     <div id="icon-container-b" class="search-engine-icon-container"></div>
                 </div>
                 
-                <input type="search" id="search-input" class="w-full h-full bg-transparent text-lg text-gray-900 dark:text-white focus:outline-none px-4" placeholder="搜索..." autocomplete="off">
+                <input type="search" id="search-input" class="w-full h-full bg-transparent text-lg text-white focus:outline-none px-4" placeholder="搜索..." autocomplete="off">
                 
                 <button type="submit" class="flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-r-full hover:bg-black/10 dark:hover:bg-white/20 transition-colors" title="搜索">
                     <svg class="icon-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -500,8 +507,8 @@
                     item.className = 'flex items-center p-3 cursor-pointer hover:bg-black/10 dark:hover:bg-white/20 transition-colors rounded-lg';
                     item.dataset.engine = key;
                     item.innerHTML = `
-                        <div class="w-6 h-6 flex-shrink-0 flex items-center justify-center search-engine-icon text-gray-700 dark:text-gray-300">${engine.logo}</div>
-                        <span class="ml-4 font-medium text-gray-800 dark:text-gray-200">${engine.name}</span>
+                        <div class="w-6 h-6 flex-shrink-0 flex items-center justify-center search-engine-icon text-white">${engine.logo}</div>
+                        <span class="ml-4 font-medium text-white">${engine.name}</span>
                     `;
                     item.addEventListener('click', () => {
                         updateSearchEngine(key);
