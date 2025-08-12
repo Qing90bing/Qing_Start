@@ -1,0 +1,23 @@
+/* Preloader Styles */
+#preloader {
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+#preloader.preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+#preloader-icon {
+    animation: breathing 1.5s ease-in-out infinite;
+}
+
+@keyframes breathing {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+}

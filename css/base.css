@@ -1,0 +1,45 @@
+/* Custom styles for the page */
+body {
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease-in-out;
+}
+.text-shadow-custom {
+     text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.dark .text-shadow-custom {
+     text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+/* Unified icon color for day/night modes */
+.icon-color {
+    color: rgb(255 255 255); /* white */
+    transition: color 0.3s ease-in-out;
+}
+.dark .icon-color {
+    color: rgb(255 255 255); /* white */
+}
+
+/* Custom scrollbar for dropdown lists */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Main Content Visibility */
+#main-content {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+#main-content.visible {
+    opacity: 1;
+}
