@@ -191,15 +191,53 @@
             opacity: 0;
             transform: translateY(-10px);
         }
+
+        /* Preloader Styles */
+        #preloader {
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        }
+
+        #preloader.preloader-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #preloader-icon {
+            animation: breathing 1.5s ease-in-out infinite;
+        }
+
+        @keyframes breathing {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        /* Main Content Visibility */
+        #main-content {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        #main-content.visible {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-200 dark:bg-black">
+
+    <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+        <img src="favicon.svg" alt="Loading..." id="preloader-icon" class="w-16 h-16">
+    </div>
 
     <div id="background-container"></div>
     <div id="background-overlay"></div>
     <div id="pseudo-style-container"></div>
 
-    <div class="relative min-h-screen w-full flex flex-col items-center justify-center p-4 text-white">
+    <div id="main-content" class="relative min-h-screen w-full flex flex-col items-center justify-center p-4 text-white">
 
         <div id="refresh-button" class="absolute top-5 left-5 p-2 rounded-full cursor-pointer hover:bg-black/10 dark:hover:bg-white/20 transition-colors" title="刷新背景">
             <svg class="refresh-icon icon-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M21 21v-5h-5"/></svg>
@@ -244,6 +282,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- DOM Element References ---
+            const preloader = document.getElementById('preloader');
+            const mainContent = document.getElementById('main-content');
             const backgroundContainer = document.getElementById('background-container');
             const pseudoStyleContainer = document.getElementById('pseudo-style-container');
             const refreshButton = document.getElementById('refresh-button');
@@ -346,6 +386,14 @@
             
             // --- Background Image ---
             let isRefreshing = false;
+
+            // Function to hide preloader and show main content
+            function completeLoading() {
+                if (preloader.classList.contains('preloader-hidden')) return;
+                
+                preloader.classList.add('preloader-hidden');
+                mainContent.classList.add('visible');
+            }
             
             function getBackgroundCategory() {
                 const hour = new Date().getHours();
@@ -359,9 +407,11 @@
             }
             
             function fetchAndSetBackground(isInitialLoad = false) {
-                if (isRefreshing) return;
+                if (isRefreshing && !isInitialLoad) return;
                 isRefreshing = true;
-                refreshIcon.classList.add('is-spinning');
+                if (!isInitialLoad) {
+                    refreshIcon.classList.add('is-spinning');
+                }
 
                 const category = getBackgroundCategory();
                 const hour = new Date().getHours();
@@ -377,7 +427,9 @@
                 img.src = imageUrl;
 
                 const stopRefreshing = () => {
-                    refreshIcon.classList.remove('is-spinning');
+                    if (!isInitialLoad) {
+                        refreshIcon.classList.remove('is-spinning');
+                    }
                     isRefreshing = false;
                 };
 
@@ -385,6 +437,7 @@
                      if (isInitialLoad) {
                         backgroundContainer.style.backgroundImage = `url(${url})`;
                         backgroundContainer.classList.add('loaded');
+                        completeLoading(); // Transition to main content
                     } else {
                         const pseudoStyle = document.createElement('style');
                         pseudoStyle.innerHTML = `#background-container::before { background-image: url(${url}); }`;
@@ -421,6 +474,7 @@
                         if (isInitialLoad) {
                              backgroundContainer.style.backgroundColor = '#333';
                              backgroundContainer.classList.add('loaded');
+                             completeLoading(); // Also transition if all fallbacks fail
                         }
                         stopRefreshing();
                     };
