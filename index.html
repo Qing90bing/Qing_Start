@@ -1,81 +1,157 @@
 <!DOCTYPE html>
+<!-- 文档类型声明，告诉浏览器这是一个 HTML5 文档 -->
 <html lang="zh-CN" class="">
+<!-- <html> 根元素，lang="zh-CN" 表示页面主要语言是简体中文 -->
 <head>
+    <!-- <head> 部分包含了文档的元数据，不会显示在页面上 -->
     <meta charset="UTF-8">
+    <!-- 指定文档的字符编码为 UTF-8，这是目前最广泛使用的编码，可以正确显示各种语言 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 设置视口，让网页在移动设备上正确显示。width=device-width 表示宽度等于设备宽度，initial-scale=1.0 表示初始缩放比例为 1.0 -->
     <title>起始页</title>
+    <!-- 设置网页的标题，会显示在浏览器的标签页上 -->
     
+    <!-- 引入 Tailwind CSS 框架 -->
+    <!-- Tailwind CSS 是一个功能类优先的 CSS 框架，可以通过组合类名快速构建界面 -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- 预连接到 Google 字体服务器，以加快字体加载速度 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 引入 "Inter" 字体，包含 400（常规）、500（中等）、600（半粗）三种字重 -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
+    <!-- 设置网站的收藏夹图标 (favicon) -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/background.css">
-    <link rel="stylesheet" href="css/preloader.css">
-    <link rel="stylesheet" href="css/components.css">
+    <!-- 引入自定义的 CSS 样式文件 -->
+    <link rel="stylesheet" href="css/base.css"> <!-- 基础样式 -->
+    <link rel="stylesheet" href="css/background.css"> <!-- 背景样式 -->
+    <link rel="stylesheet" href="css/preloader.css"> <!-- 预加载动画样式 -->
+    <link rel="stylesheet" href="css/components.css"> <!-- UI 组件样式 -->
 
 </head>
 <body class="bg-gray-200 dark:bg-black">
+<!-- <body> 元素包含页面的所有可见内容 -->
+<!-- class="bg-gray-200 dark:bg-black" 设置了日间模式下背景为灰色，夜间模式（dark mode）下为黑色 -->
 
+    <!-- 预加载器 -->
+    <!-- fixed inset-0: 固定定位并铺满整个屏幕 -->
+    <!-- bg-white: 背景为白色 -->
+    <!-- flex items-center justify-center: 使用 Flexbox 实现内容水平垂直居中 -->
+    <!-- z-50: 设置层叠顺序为 50，确保它在最顶层 -->
     <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+        <!-- 预加载图标 -->
         <img src="favicon.svg" alt="Loading..." id="preloader-icon" class="w-16 h-16">
     </div>
 
+    <!-- 背景容器 -->
     <div id="background-container"></div>
+    <!-- 背景遮罩层，用于增强文本的可读性 -->
     <div id="background-overlay"></div>
+    <!-- 这个空的 div 用于通过 JavaScript 注入伪元素的样式，实现背景的交叉淡入淡出效果 -->
     <div id="pseudo-style-container"></div>
 
+    <!-- 主要内容容器 -->
+    <!-- relative: 相对定位，作为内部绝对定位元素的参照物 -->
+    <!-- min-h-screen: 最小高度为整个屏幕高度 -->
+    <!-- flex flex-col items-center justify-center: 使用 Flexbox 让内容垂直排列并居中 -->
+    <!-- p-4: 内边距为 4 个单位 -->
+    <!-- text-white: 文本颜色为白色 -->
     <div id="main-content" class="relative min-h-screen w-full flex flex-col items-center justify-center p-4 text-white">
 
+        <!-- 刷新背景按钮 -->
+        <!-- absolute top-5 left-5: 绝对定位在左上角 -->
+        <!-- p-2 rounded-full cursor-pointer: 设置内边距、圆形、鼠标手势 -->
+        <!-- hover:bg-black/10 dark:hover:bg-white/20: 鼠标悬停时的背景效果（日间/夜间模式） -->
+        <!-- transition-colors: 颜色过渡效果 -->
         <div id="refresh-button" class="absolute top-5 left-5 p-2 rounded-full cursor-pointer hover:bg-black/10 dark:hover:bg-white/20 transition-colors" title="刷新背景">
+            <!-- 刷新图标 (SVG) -->
             <svg class="refresh-icon icon-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M21 21v-5h-5"/></svg>
         </div>
 
+        <!-- 主题切换器容器 -->
+        <!-- absolute top-5 right-5: 绝对定位在右上角 -->
         <div class="absolute top-5 right-5">
              <div class="relative">
+                <!-- 主题切换按钮 -->
                 <button id="theme-button" class="p-2 rounded-full cursor-pointer hover:bg-black/10 dark:hover:bg-white/20 transition-colors">
-                    </button>
+                    <!-- 按钮图标会由 JavaScript 动态插入 -->
+                </button>
+                <!-- 主题选择菜单 -->
+                <!-- absolute top-full right-0: 绝对定位在按钮下方，并靠右对齐 -->
+                <!-- mt-2 w-36 rounded-xl shadow-lg glass-effect: 设置外边距、宽度、圆角、阴影和毛玻璃效果 -->
+                <!-- origin-top-right: 设置变换的原点为右上角 -->
+                <!-- transition-all duration-300: 所有属性的过渡效果，持续 300 毫秒 -->
+                <!-- scale-y-0 opacity-0: 初始状态为垂直缩放为0且透明，实现隐藏效果 -->
                 <div id="theme-menu" class="absolute top-full right-0 mt-2 w-36 rounded-xl shadow-lg glass-effect origin-top-right transition-all duration-300 scale-y-0 opacity-0 p-1">
-                    </div>
+                    <!-- 菜单项会由 JavaScript 动态生成 -->
+                </div>
             </div>
         </div>
 
+        <!-- 页面中央的主要交互区域 -->
         <div class="w-full max-w-xl relative">
+            <!-- 时间、日期和一言的容器 -->
+            <!-- absolute bottom-full: 绝对定位在父元素的顶部之外 -->
+            <!-- w-full text-center text-shadow-custom mb-8: 设置宽度、文本居中、自定义文本阴影和外边距 -->
             <div id="time-date-container" class="absolute bottom-full w-full text-center text-shadow-custom mb-8">
+                <!-- 时间显示 -->
                 <div id="time" class="text-7xl md:text-8xl font-semibold tracking-tighter">00:00</div>
+                <!-- 日期显示 -->
                 <div id="date" class="text-lg md:text-xl font-medium mt-1"></div>
+                <!-- 一言（Hitokoto）容器 -->
                 <div id="hitokoto-container" class="text-lg md:text-xl" title="点击切换"></div>
             </div>
 
+            <!-- 搜索表单 -->
+            <!-- flex items-center w-full h-14 rounded-full shadow-lg glass-effect: Flexbox布局、全宽、固定高度、圆角、阴影和毛玻璃效果 -->
             <form id="search-form" class="flex items-center w-full h-14 rounded-full shadow-lg glass-effect">
+                <!-- 搜索引擎 Logo 容器 -->
                 <div id="search-engine-logo" class="relative flex-shrink-0 w-14 h-14 flex items-center justify-center cursor-pointer rounded-l-full hover:bg-black/10 dark:hover:bg-white/20 transition-colors icon-color">
+                    <!-- 这两个容器用于实现 Logo 切换时的淡入淡出动画 -->
                     <div id="icon-container-a" class="search-engine-icon-container"></div>
                     <div id="icon-container-b" class="search-engine-icon-container"></div>
                 </div>
                 
+                <!-- 搜索输入框 -->
+                <!-- type="search": 定义为搜索框，在某些设备上会有特殊表现（如显示清除按钮） -->
+                <!-- bg-transparent: 背景透明 -->
+                <!-- focus:outline-none: 聚焦时移除默认的轮廓线 -->
+                <!-- autocomplete="off": 关闭自动完成功能 -->
                 <input type="search" id="search-input" class="w-full h-full bg-transparent text-lg text-white focus:outline-none px-4" placeholder="搜索..." autocomplete="off">
                 
+                <!-- 搜索提交按钮 -->
                 <button type="submit" class="flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-r-full hover:bg-black/10 dark:hover:bg-white/20 transition-colors" title="搜索">
+                    <!-- 搜索图标 (SVG) -->
                     <svg class="icon-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>
             </form>
 
+            <!-- 搜索引擎选择列表的包裹容器 -->
+            <!-- absolute top-full mt-2 w-full: 绝对定位在搜索框下方，全宽 -->
+            <!-- 初始状态为隐藏 (scale-y-0 opacity-0) -->
             <div id="search-engine-list-wrapper" class="absolute top-full mt-2 w-full rounded-2xl shadow-lg glass-effect origin-top transition-all duration-300 scale-y-0 opacity-0 p-1.5">
+                <!-- 搜索引擎列表 -->
+                <!-- max-h-60 overflow-y-auto custom-scrollbar: 设置最大高度、垂直方向溢出时显示滚动条，并使用自定义滚动条样式 -->
                 <div id="search-engine-list" class="max-h-60 overflow-y-auto custom-scrollbar">
-                    </div>
+                    <!-- 列表项会由 JavaScript 动态生成 -->
+                </div>
             </div>
         </div>
 
-        <!-- GitHub Icon Link -->
+        <!-- GitHub 图标链接 -->
+        <!-- a 标签用于创建超链接 -->
+        <!-- target="_blank": 在新的标签页中打开链接 -->
+        <!-- rel="noopener noreferrer": 出于安全考虑，防止新页面访问原始页面的 window 对象 -->
         <a href="https://github.com/Qing90bing" target="_blank" rel="noopener noreferrer" class="absolute bottom-5 right-5 p-2 rounded-full cursor-pointer hover:bg-black/10 dark:hover:bg-white/20 transition-colors" title="在 GitHub 上查看">
+            <!-- GitHub Logo (SVG) -->
             <svg class="icon-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
         </a>
     </div>
+    <!-- 引入主要的 JavaScript 文件 -->
+    <!-- type="module" 表示这是一个 ES6 模块，可以使用 import/export 语法 -->
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
