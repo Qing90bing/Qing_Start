@@ -101,4 +101,13 @@ export function initSearch() {
             searchInput.value = ''; // 清空输入框
         }
     });
+
+    // 监听输入框的聚焦和失焦事件，以切换表单的高亮状态
+    searchInput.addEventListener('focus', () => {
+        searchForm.classList.add('is-focused');
+    });
+
+    searchInput.addEventListener('blur', () => {
+        searchForm.classList.remove('is-focused');
+    });
 }

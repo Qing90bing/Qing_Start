@@ -3,13 +3,6 @@ body {
     font-family: 'Inter', sans-serif; /* 设置全局字体 */
     transition: background-color 0.3s ease-in-out; /* 背景颜色过渡效果 */
 }
-.text-shadow-custom {
-     text-shadow: 0 2px 8px rgba(0,0,0,0.15); /* 自定义文本阴影 */
-}
-.dark .text-shadow-custom {
-     text-shadow: 0 2px 12px rgba(0,0,0,0.6); /* 深色模式下的文本阴影 */
-}
-
 /* 为日间/夜间模式统一图标颜色 */
 .icon-color {
     color: rgb(255 255 255); /* 白色 */
@@ -49,7 +42,7 @@ body {
     outline: none;
     /* 设置一个默认的、透明的 box-shadow 以便过渡 */
     box-shadow: 0 0 0 0px rgba(17, 24, 39, 0);
-    transition: box-shadow 0.2s ease-in-out;
+    transition: box-shadow 0.25s ease-in-out;
 }
 
 /* 仅当 polyfill 添加 .focus-visible 类时才应用焦点样式 */
@@ -65,4 +58,29 @@ body {
 
 .dark :where(a, button, div[role="button"], input, [tabindex]:not([tabindex*="-"])).focus-visible {
     box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6); /* 夜间模式光圈 */
+}
+
+/*
+  为主要内容区域内的按钮元素提供统一的、优先级更高的过渡效果。
+  这确保了即使元素上应用了 Tailwind 的 `transition-colors` 等类，
+  transform 和 box-shadow 的过渡动画也能生效。
+*/
+#main-content a[href],
+#main-content button,
+#main-content div[role="button"] {
+    /* 合并所有需要的过渡效果 */
+    transition: color 0.2s ease,
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.25s ease-in-out,
+                transform 0.1s ease-in-out,
+                filter 0.2s ease-in-out,
+                opacity 0.3s ease-in-out;
+}
+
+/* 为这些按钮添加统一的点击缩放效果，并排除搜索栏两侧的按钮 */
+#main-content a[href]:not(.no-scale):active,
+#main-content button:not(.no-scale):active,
+#main-content div[role="button"]:not(.no-scale):active {
+    transform: scale(0.95);
 }

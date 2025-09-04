@@ -22,4 +22,12 @@ export function initGlobalClickListeners(toggleThemeMenu, toggleEngineList) {
     // 注意: searchEngineLogo 和 themeButton 的特定点击监听器（用于打开菜单）
     // 分别在 search.js 和 theme.js 中定义。
     // 这样做可以保持模块化，将打开和关闭逻辑分离。
+
+    // 添加全局键盘事件监听器，用于处理 "Esc" 键关闭菜单
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            toggleThemeMenu(false);
+            toggleEngineList(false);
+        }
+    });
 }

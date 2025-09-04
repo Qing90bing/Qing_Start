@@ -3,6 +3,8 @@ import { backgroundContainer, pseudoStyleContainer, refreshIcon, preloader, main
 
 // 标志位，防止在刷新过程中重复触发
 let isRefreshing = false;
+// 预加载器超时定时器的 ID
+let preloaderTimeoutId = null;
 
 /**
  * 完成页面加载过程，隐藏预加载器并显示主要内容。
@@ -11,10 +13,14 @@ function completeLoading() {
     // 如果预加载器已经隐藏，则直接返回
     if (preloader.classList.contains('preloader-hidden')) return;
 
+    // 如果是通过正常加载（而非超时）调用的，清除超时定时器
+    if (preloaderTimeoutId) {
+        clearTimeout(preloaderTimeoutId);
+        preloaderTimeoutId = null;
+    }
+
     console.log("正在隐藏预加载器...");
     preloader.classList.add('preloader-hidden');
-    // 强制隐藏元素以进行调试
-    preloader.style.display = 'none';
     mainContent.classList.add('visible');
 }
 
@@ -41,9 +47,17 @@ export function fetchAndSetBackground(isInitialLoad = false) {
     // 如果正在刷新且不是初始加载，则不执行任何操作
     if (isRefreshing && !isInitialLoad) return;
     isRefreshing = true;
-    // 如果不是初始加载，则显示旋转动画
-    if (!isInitialLoad) {
+    // 如果不是初始加载，则显示旋转动画并禁用按钮
+    if (isInitialLoad) {
+        // 如果是初始加载，设置12秒的超时定时器
+        preloaderTimeoutId = setTimeout(() => {
+            console.log("预加载超时，强制显示内容。");
+            completeLoading();
+        }, 12000);
+    } else {
+        // 如果不是初始加载，则显示旋转动画并禁用按钮
         refreshIcon.classList.add('is-spinning');
+        refreshIcon.classList.add('is-disabled');
     }
 
     const category = getBackgroundCategory();
@@ -64,6 +78,7 @@ export function fetchAndSetBackground(isInitialLoad = false) {
     const stopRefreshing = () => {
         if (!isInitialLoad) {
             refreshIcon.classList.remove('is-spinning');
+            refreshIcon.classList.remove('is-disabled');
         }
         isRefreshing = false;
     };

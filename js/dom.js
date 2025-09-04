@@ -30,6 +30,9 @@ export const searchEngineListWrapper = document.getElementById('search-engine-li
 export const searchEngineList = document.getElementById('search-engine-list');
 // HTML 根元素
 export const htmlEl = document.documentElement;
+// 用于主题图标切换的容器 A 和 B
+export const themeIconA = document.getElementById('theme-icon-a');
+export const themeIconB = document.getElementById('theme-icon-b');
 // 用于搜索引擎图标切换的容器 A
 export const iconContainerA = document.getElementById('icon-container-a');
 // 用于搜索引擎图标切换的容器 B

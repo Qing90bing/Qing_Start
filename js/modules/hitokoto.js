@@ -21,8 +21,11 @@ function fetchHitokoto() {
         .then(data => {
             // 等待淡出动画完成
             setTimeout(() => {
-                // 更新文本内容并移除 fading 类以触发淡入动画
-                hitokotoContainer.textContent = data.hitokoto;
+                // 更新内容，将文本包裹在 span 中
+                hitokotoContainer.innerHTML = `<span>${data.hitokoto}</span>`;
+                // 强制浏览器重绘，以确保淡入动画能够触发
+                void hitokotoContainer.offsetHeight;
+                // 移除 fading 类以触发淡入动画
                 hitokotoContainer.classList.remove('is-fading');
                 // 动画完成后允许再次获取
                 setTimeout(() => {
@@ -34,7 +37,9 @@ function fetchHitokoto() {
             console.error('获取“一言”时出错:', error);
             // 发生错误时的处理
             setTimeout(() => {
-                hitokotoContainer.textContent = '句子迷路了...';
+                hitokotoContainer.innerHTML = '<span>句子迷路了...</span>';
+                // 强制浏览器重绘
+                void hitokotoContainer.offsetHeight;
                 hitokotoContainer.classList.remove('is-fading');
                 isFetchingHitokoto = false;
             }, 300);

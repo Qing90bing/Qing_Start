@@ -3,6 +3,12 @@
     font-variant-numeric: tabular-nums; /* 确保数字等宽，防止时间跳动 */
 }
 
+/* 垂直居中时间的冒号 */
+.time-colon {
+    position: relative;
+    top: -0.08em; /* 向上微调以实现视觉居中 */
+}
+
 /* 交互元素的玻璃拟态效果 */
 .glass-effect {
     background-color: rgba(255, 255, 255, 0.4); /* 半透明背景 */
@@ -34,7 +40,6 @@
 /* 搜索输入框文本和占位符样式 */
 #search-input {
     transition: color 0.3s ease-in-out;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.4); /* 文本阴影 */
 }
 #search-input::placeholder {
     color: rgb(75 85 99); /* 占位符颜色 */
@@ -42,6 +47,21 @@
 }
 .dark #search-input::placeholder {
     color: rgb(209 213 219 / 0.7); /* 深色模式下占位符颜色 */
+}
+
+/* 移除搜索输入框的默认焦点光圈 */
+#search-input:focus,
+#search-input.focus-visible {
+    box-shadow: none !important;
+}
+
+/* 当搜索表单聚焦时，使其边框高亮 */
+#search-form.is-focused {
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.dark #search-form.is-focused {
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 /* 刷新按钮的旋转动画 */
@@ -53,12 +73,27 @@
     animation: spin 1s linear infinite; /* 应用旋转动画 */
 }
 
+/* 刷新按钮禁用时的样式 */
+#refresh-button.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(50%); /* 增加灰度效果以增强视觉提示 */
+}
+
 /* 菜单中活动主题项的样式 */
 .theme-item-active {
     background-color: rgba(0, 0, 0, 0.08); /* 活动项背景色 */
 }
 .dark .theme-item-active {
     background-color: rgba(255, 255, 255, 0.15); /* 深色模式下活动项背景色 */
+}
+
+/* 主题切换图标容器样式 */
+.theme-icon-container {
+    position: absolute;
+    width: 24px; /* w-6 */
+    height: 24px; /* h-6 */
+    transition: opacity 0.3s ease-in-out;
 }
 
 /* 统一搜索引擎图标大小 */
@@ -69,29 +104,49 @@
     fill: currentColor; /* 确保SVG颜色被继承 */
 }
 
+/* 为搜索栏两侧按钮的内部图标添加过渡效果 */
+#search-form button[type="submit"] svg {
+    /* 合并颜色和缩放的过渡效果 */
+    transition: color 0.3s ease-in-out, transform 0.1s ease-in-out;
+}
+
+/* 当点击搜索栏两侧按钮时，只缩放内部图标 */
+#search-engine-logo:active .search-engine-icon-container,
+#search-form button[type="submit"]:active svg {
+    transform: scale(0.9);
+}
+
 /* 图标过渡样式 */
 .search-engine-icon-container {
     position: absolute;
     width: 28px; /* w-7 */
     height: 28px; /* h-7 */
-    transition: opacity 0.2s ease-in-out; /* 透明度过渡 */
+    /* 合并透明度和缩放的过渡效果 */
+    transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
 }
 
 /* 一言（Hitokoto）样式 */
 #hitokoto-container {
     margin-top: 1rem; /* mt-4 */
-    padding: 0 1rem; /* px-4, remove vertical padding */
+    padding: 0 1rem; /* px-4 */
     max-width: 80%;
     font-weight: 500; /* font-medium */
     cursor: pointer; /* 鼠标指针为手形 */
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    text-align: center; /* Add text-align for cases where the text wraps into multiple lines */
+    text-align: center;
 
-    /* 固定高度和多行省略号，确保布局稳定 */
-    height: 3.2em; /* 约等于 2 * 1.5em 行高 + 一些额外空间 */
+    /* 使用 Flexbox 实现垂直居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 3.2em; /* 使用最小高度确保布局稳定，约等于2行文字高度 */
+}
+
+/* 对内部的 span 应用行数限制 */
+#hitokoto-container span {
     line-height: 1.6em; /* 给予略微宽松的行高 */
     overflow: hidden;
-    display: -webkit-box; /* 必须是 -webkit-box 才能使用 line-clamp */
+    display: -webkit-box;
     -webkit-line-clamp: 2; /* 限制为两行 */
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
@@ -99,13 +154,11 @@
 
 #hitokoto-container.is-fading {
     opacity: 0;
-    transform: translateY(-10px); /* 向上移动并淡出 */
 }
 
 /* 自定义提示框样式 */
 #custom-tooltip {
     color: rgb(31 41 55); /* text-gray-800 */
-    text-shadow: 0 1px 2px rgba(255,255,255,0.5);
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
@@ -113,5 +166,4 @@
 
 .dark #custom-tooltip {
     color: rgb(229 231 235); /* text-gray-200 */
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }

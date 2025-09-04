@@ -9,13 +9,13 @@ function updateTime() {
     // 格式化小时和分钟，确保为两位数
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
-    timeEl.textContent = `${hours}:${minutes}`;
+    timeEl.innerHTML = `${hours}<span class="time-colon">:</span>${minutes}`;
 
     // 格式化月、日和星期
     const month = now.getMonth() + 1;
     const day = now.getDate();
     const weekday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][now.getDay()];
-    dateEl.textContent = `${month}月${day}日, ${weekday}`;
+    dateEl.textContent = `${month} 月 ${day} 日  |  ${weekday}`;
 }
 
 /**

@@ -10,6 +10,9 @@
     <!-- 设置视口，让网页在移动设备上正确显示。width=device-width 表示宽度等于设备宽度，initial-scale=1.0 表示初始缩放比例为 1.0 -->
     <title>起始页</title>
     <!-- 设置网页的标题，会显示在浏览器的标签页上 -->
+
+    <!-- 尽早执行主题加载脚本以防止 FOUC (Flash of Unstyled Content) -->
+    <script src="js/theme-loader.js"></script>
     
     <!-- 引入 Tailwind CSS 框架 -->
     <!-- Tailwind CSS 是一个功能类优先的 CSS 框架，可以通过组合类名快速构建界面 -->
@@ -36,10 +39,9 @@
 
     <!-- 预加载器 -->
     <!-- fixed inset-0: 固定定位并铺满整个屏幕 -->
-    <!-- bg-white: 背景为白色 -->
     <!-- flex items-center justify-center: 使用 Flexbox 实现内容水平垂直居中 -->
     <!-- z-50: 设置层叠顺序为 50，确保它在最顶层 -->
-    <div id="preloader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+    <div id="preloader" class="fixed inset-0 flex items-center justify-center z-50">
         <!-- 预加载图标 -->
         <img src="favicon.svg" alt="Loading..." id="preloader-icon" class="w-16 h-16">
     </div>
@@ -71,11 +73,12 @@
 
         <!-- 主题切换器容器 -->
         <!-- absolute top-5 right-5: 绝对定位在右上角 -->
-        <div class="absolute top-5 right-5">
+        <div class="absolute top-5 right-5 z-10">
              <div class="relative">
                 <!-- 主题切换按钮 -->
-                <button id="theme-button" class="p-2 rounded-full cursor-pointer hover:bg-black/10 dark:hover:bg-white/20 transition-colors" data-tooltip="切换主题">
-                    <!-- 按钮图标会由 JavaScript 动态插入 -->
+                <button id="theme-button" class="p-2 rounded-full cursor-pointer hover:bg-black/10 dark:hover:bg-white/20 transition-colors flex items-center justify-center w-10 h-10" data-tooltip="切换主题">
+                    <div id="theme-icon-a" class="theme-icon-container"></div>
+                    <div id="theme-icon-b" class="theme-icon-container"></div>
                 </button>
                 <!-- 主题选择菜单 -->
                 <!-- absolute top-full right-0: 绝对定位在按钮下方，并靠右对齐 -->
@@ -96,18 +99,18 @@
             <!-- w-full flex flex-col items-center text-shadow-custom mb-8: 使用 Flexbox 垂直居中对齐 -->
             <div id="time-date-container" class="absolute bottom-full w-full flex flex-col items-center text-shadow-custom mb-8">
                 <!-- 时间显示 -->
-                <div id="time" class="text-7xl md:text-8xl font-semibold tracking-tighter">00:00</div>
+                <div id="time" class="text-6xl sm:text-7xl md:text-8xl font-semibold tracking-tighter">00:00</div>
                 <!-- 日期显示 -->
-                <div id="date" class="text-lg md:text-xl font-medium mt-1"></div>
+                <div id="date" class="text-lg md:text-xl font-medium mt-1 break-all px-2"></div>
                 <!-- 一言（Hitokoto）容器 -->
-                <div id="hitokoto-container" class="text-lg md:text-xl" data-tooltip="点击切换" role="button" tabindex="0"></div>
+                <div id="hitokoto-container" class="no-scale text-lg md:text-xl" data-tooltip="点击切换" role="button" tabindex="0"></div>
             </div>
 
             <!-- 搜索表单 -->
             <!-- flex items-center w-full h-14 rounded-full shadow-lg glass-effect: Flexbox布局、全宽、固定高度、圆角、阴影和毛玻璃效果 -->
             <form id="search-form" class="flex items-center w-full h-14 rounded-full shadow-lg glass-effect">
                 <!-- 搜索引擎 Logo 容器 -->
-                <div id="search-engine-logo" class="relative flex-shrink-0 w-14 h-14 flex items-center justify-center cursor-pointer rounded-l-full hover:bg-black/10 dark:hover:bg-white/20 transition-colors icon-color" data-tooltip="切换搜索引擎" role="button" tabindex="0">
+                <div id="search-engine-logo" class="no-scale relative flex-shrink-0 w-14 h-14 flex items-center justify-center cursor-pointer rounded-l-full hover:bg-black/10 dark:hover:bg-white/20 transition-colors icon-color" data-tooltip="切换搜索引擎" role="button" tabindex="0">
                     <!-- 这两个容器用于实现 Logo 切换时的淡入淡出动画 -->
                     <div id="icon-container-a" class="search-engine-icon-container"></div>
                     <div id="icon-container-b" class="search-engine-icon-container"></div>
@@ -121,7 +124,7 @@
                 <input type="search" id="search-input" class="w-full h-full bg-transparent text-lg text-white focus:outline-none px-4" placeholder="搜索..." autocomplete="off">
                 
                 <!-- 搜索提交按钮 -->
-                <button type="submit" class="flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-r-full hover:bg-black/10 dark:hover:bg-white/20 transition-colors" data-tooltip="搜索">
+                <button type="submit" class="no-scale flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-r-full hover:bg-black/10 dark:hover:bg-white/20 transition-colors" data-tooltip="搜索">
                     <!-- 搜索图标 (SVG) -->
                     <svg class="icon-color" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </button>

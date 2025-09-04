@@ -1,6 +1,11 @@
 /* 预加载器样式 */
 #preloader {
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* 透明度和可见性过渡 */
+    background-color: #f9fafb; /* 柔和的白色 (Tailwind gray-50) */
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.dark #preloader {
+    background-color: #111827; /* 深邃的黑色 (Tailwind gray-900) */
 }
 
 #preloader.preloader-hidden {
