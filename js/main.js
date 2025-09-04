@@ -1,10 +1,12 @@
 // 导入各个模块的初始化函数和切换函数
+// 导入各个模块的初始化函数和切换函数
 import { initTheme, toggleThemeMenu } from './modules/theme.js';
 import { initTime } from './modules/time.js';
 import { initHitokoto } from './modules/hitokoto.js';
 import { initSearch, toggleEngineList } from './modules/search.js';
 import { fetchAndSetBackground } from './modules/background.js';
 import { initGlobalClickListeners } from './modules/ui.js';
+import { initTooltips } from './modules/tooltip.js'; // 导入提示框模块
 import { refreshButton } from './dom.js'; // 导入刷新按钮元素
 
 // 主初始化函数
@@ -14,6 +16,7 @@ function initialize() {
     initTime(); // 初始化时间显示
     initHitokoto(); // 初始化一言
     initSearch(); // 初始化搜索功能
+    initTooltips(); // 初始化自定义提示框
 
     // 初始化背景图片获取
     fetchAndSetBackground(true); // 初始加载时获取背景

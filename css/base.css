@@ -43,3 +43,26 @@ body {
 #main-content.visible {
     opacity: 1; /* 完全显示 */
 }
+
+/* 自定义全局焦点样式 (由 focus-visible.js polyfill 驱动) */
+:where(a, button, div[role="button"], input, [tabindex]:not([tabindex*="-"])) {
+    outline: none;
+    /* 设置一个默认的、透明的 box-shadow 以便过渡 */
+    box-shadow: 0 0 0 0px rgba(17, 24, 39, 0);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+/* 仅当 polyfill 添加 .focus-visible 类时才应用焦点样式 */
+:where(a, button, div[role="button"], input, [tabindex]:not([tabindex*="-"])).focus-visible {
+    box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.5); /* 日间模式光圈 */
+}
+
+/* 夜间模式样式 */
+.dark :where(a, button, div[role="button"], input, [tabindex]:not([tabindex*="-"])) {
+    /* 为夜间模式设置一个默认的、透明的 box-shadow */
+    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0);
+}
+
+.dark :where(a, button, div[role="button"], input, [tabindex]:not([tabindex*="-"])).focus-visible {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.6); /* 夜间模式光圈 */
+}

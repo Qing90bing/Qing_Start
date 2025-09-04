@@ -80,18 +80,38 @@
 /* 一言（Hitokoto）样式 */
 #hitokoto-container {
     margin-top: 1rem; /* mt-4 */
-    /* MODIFIED: 添加 auto margins 以实现水平居中 */
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0.5rem 1rem; /* p-2 px-4 */
+    padding: 0 1rem; /* px-4, remove vertical padding */
     max-width: 80%;
     font-weight: 500; /* font-medium */
     cursor: pointer; /* 鼠标指针为手形 */
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    display: inline-block;
+    text-align: center; /* Add text-align for cases where the text wraps into multiple lines */
+
+    /* 固定高度和多行省略号，确保布局稳定 */
+    height: 3.2em; /* 约等于 2 * 1.5em 行高 + 一些额外空间 */
+    line-height: 1.6em; /* 给予略微宽松的行高 */
+    overflow: hidden;
+    display: -webkit-box; /* 必须是 -webkit-box 才能使用 line-clamp */
+    -webkit-line-clamp: 2; /* 限制为两行 */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }
 
 #hitokoto-container.is-fading {
     opacity: 0;
     transform: translateY(-10px); /* 向上移动并淡出 */
+}
+
+/* 自定义提示框样式 */
+#custom-tooltip {
+    color: rgb(31 41 55); /* text-gray-800 */
+    text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.dark #custom-tooltip {
+    color: rgb(229 231 235); /* text-gray-200 */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }

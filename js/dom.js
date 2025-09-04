@@ -36,3 +36,4 @@ export const iconContainerA = document.getElementById('icon-container-a');
 export const iconContainerB = document.getElementById('icon-container-b');
 // “一言”容器
 export const hitokotoContainer = document.getElementById('hitokoto-container');
+export const customTooltip = document.getElementById('custom-tooltip');
